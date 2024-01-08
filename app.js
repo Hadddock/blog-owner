@@ -13,7 +13,11 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB = process.env.CONNECTION_STRING;
+async function main() {
+  await mongoose.connect(mongoDB);
+}
 
+main().catch((err) => console.log(err));
 var app = express();
 
 // view engine setup
