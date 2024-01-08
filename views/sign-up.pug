@@ -1,0 +1,16 @@
+extends layout.pug
+block content 
+    h1= "Sign-up here!"
+    form(method='POST')
+        label(for='username') Username:
+        input#username.form-control(type='text', placeholder='Username' name='username' required value=(undefined===user ? '' : user.username) )
+        label(for='password') Password:
+        input#password.form-control(type='text', placeholder='Password' name='password' required value=(""))
+        label(for='confirm_password') Confirm Password:
+        input#confirm_password.form-control(type='text', placeholder='Confirm Password' name='confirm_password' required value=(""))
+        button.btn.btn-primary(type='submit') Submit
+
+    if errors
+        ul
+        for error in errors
+            li!= error.msg
