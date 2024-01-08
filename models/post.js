@@ -6,6 +6,7 @@ const PostSchema = new Schema({
   date_created: { type: Date },
   message: { type: String, required: true, maxLength: 60000 },
   title: { type: String, required: true, maxLength: 10000 },
+  publish_date: { type: Date },
 });
 
 module.exports = mongoose.model("Post", PostSchema);
