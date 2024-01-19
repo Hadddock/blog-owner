@@ -2,6 +2,9 @@ var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 const session = require("express-session");
+const Redis = require("ioredis");
+const RedisStore = require("connect-redis").default;
+
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
@@ -28,9 +31,11 @@ var app = express();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+const redisClient = new Redis();
 
 app.use(
   session({
+    store: new RedisStore({ client: redisClient }),
     secret: process.env.SESSION_SECRET,
     cookie: { secure: process.env.ENVIRONMENT === "production" },
     resave: false,
