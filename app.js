@@ -29,6 +29,7 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+const secureCookie = process.env.ENVIRONMENT === "production";
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
