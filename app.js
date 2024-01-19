@@ -32,7 +32,7 @@ app.set("view engine", "pug");
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    cookie: { secure: true },
+    cookie: { secure: process.env.ENVIRONMENT === "production" },
     resave: false,
     saveUninitialized: true,
   })
