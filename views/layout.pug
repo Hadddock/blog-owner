@@ -8,6 +8,10 @@ html
       if currentUser 
         form(action="/logout" method="post")
           button(type="submit") Log out
+        if currentUser.admin 
+          form(action="/post" method="get")
+            button(type="submit") Create post
+            
       else 
         form(action="/login")
           button(type="submit") Login
