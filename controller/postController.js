@@ -6,6 +6,20 @@ exports.post_get = asyncHandler(async (req, res, next) => {
   res.render("post");
 });
 
+exports.post_detail = asyncHandler(async (req, res, next) => {
+  if (req.params.id) {
+    const post = await Post.findOne({ _id: req.params.id }).exec();
+    const currentDate = new Date();
+    if (post.publish_date === null || post.publish_date <= currentDate) {
+      res.render("post-detail", { post: post });
+    } else {
+      res.sendStatus(404);
+    }
+  } else {
+    res.sendStatus(404);
+  }
+});
+
 exports.post_post = [
   body("title")
     .trim()
@@ -21,7 +35,6 @@ exports.post_post = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
 
-    console.log(req.body.publish_date + "ratat");
     let publish_date = req.body.publish_date;
     if (req.body.publish_date == null || req.body.publish_date == "") {
       publish_date = new Date();
