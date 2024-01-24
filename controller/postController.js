@@ -36,7 +36,7 @@ exports.post_post = [
     const errors = validationResult(req);
 
     let publish_date = req.body.publish_date;
-    if (req.body.publish_date == null || req.body.publish_date == "") {
+    if (req.body.publish_date === null || req.body.publish_date == "") {
       publish_date = new Date();
     }
 
@@ -45,6 +45,7 @@ exports.post_post = [
       title: req.body.title,
       publish_date: publish_date,
       date_created: new Date(),
+      edit_date: new Date(),
     });
 
     if (!errors.isEmpty()) {
