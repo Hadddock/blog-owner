@@ -5,7 +5,7 @@ const CommentSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "User" },
   post: { type: Schema.Types.ObjectId, ref: "Post" },
   date_created: { type: Date },
-  message: { type: String, required: true, maxLength: 60000 },
+  message: { type: String, required: true, maxLength: 60000, minLength: 1 },
 });
 
 module.exports = mongoose.model("Comment", CommentSchema);
