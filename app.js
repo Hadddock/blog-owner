@@ -49,6 +49,13 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
+
+      if (!user.admin) {
+        return done(null, false, {
+          message: "You are not an admin. Access denied",
+        });
+      }
+
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
         // passwords do not match!
