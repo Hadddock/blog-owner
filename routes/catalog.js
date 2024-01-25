@@ -7,7 +7,8 @@ const post_controller = require("../controller/postController");
 router.get("/sign-up", user_controller.sign_up_get);
 router.post("/sign-up", user_controller.sign_up_post);
 
-router.get("/post/:id", post_controller.post_detail);
+router.get("/post/:id", post_controller.post_detail_get);
+router.post("/post/:id", post_controller.post_detail_post);
 
 router.get("/login", user_controller.login_get);
 
