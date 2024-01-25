@@ -4,10 +4,16 @@ const Post = require("./../models/post");
 const Comment = require("./../models/comment");
 
 exports.post_get = asyncHandler(async (req, res, next) => {
+  if (!req.user) {
+    res.sendStatus(401);
+  }
   res.render("post");
 });
 
 exports.post_detail_get = asyncHandler(async (req, res, next) => {
+  if (!req.user) {
+    res.sendStatus(401);
+  }
   if (req.params.id) {
     const post = await Post.findOne({ _id: req.params.id }).exec();
     const comments = await Comment.find({ post: req.params.id })
@@ -31,6 +37,10 @@ exports.post_detail_post = [
     .withMessage("Comment must be 1-60000 characters long")
     .escape(),
   asyncHandler(async (req, res, next) => {
+    if (!req.user) {
+      res.sendStatus(401);
+    }
+
     const errors = validationResult(req);
     if (req.params.id && req.user) {
       const post = await Post.findOne({ _id: req.params.id }).exec();
@@ -73,6 +83,9 @@ exports.post_post = [
     .escape(),
 
   asyncHandler(async (req, res, next) => {
+    if (!req.user) {
+      res.sendStatus(401);
+    }
     const errors = validationResult(req);
 
     let publish_date = req.body.publish_date;
