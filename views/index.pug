@@ -2,7 +2,9 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to the blog admin page. 
+  if !currentUser
+    p Please login to an admin account to continue
   if currentUser
     p Hello #{currentUser.username}!
     if posts 
