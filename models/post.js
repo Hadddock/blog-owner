@@ -10,4 +10,8 @@ const PostSchema = new Schema({
   publish_date: { type: Date, default: new Date() },
 });
 
+PostSchema.virtual("publish_date_local").get(function () {
+  return this.publish_date.toISOString().slice(0, 16);
+});
+
 module.exports = mongoose.model("Post", PostSchema);
