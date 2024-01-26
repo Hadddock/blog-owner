@@ -5,6 +5,8 @@ block content
         p #{post.message}
         p This post was published #{post.publish_date}
         p This post was last edited #{post.edit_date}
+    a(href="/post/" + post._id +"/edit")
+        button Edit Post 
         if comments 
                 ul 
                     for comment in comments 

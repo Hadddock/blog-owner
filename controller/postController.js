@@ -85,6 +85,63 @@ exports.post_detail_post = [
   }),
 ];
 
+exports.post_edit_get = asyncHandler(async (req, res, next) => {
+  if (!req.user) {
+    res.sendStatus(401);
+  }
+  const post = await Post.findById(req.params.id).exec();
+  res.render("post-edit", { post: post });
+});
+
+exports.post_edit_post = [
+  body("title")
+    .trim()
+    .isLength({ min: 1, max: 10000 })
+    .withMessage("Post title must be 1-10000 characters long")
+    .escape(),
+  body("message")
+    .trim()
+    .isLength({ min: 1, max: 60000 })
+    .withMessage("Post message must be 1-60000 characters long")
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    if (!req.user) {
+      res.sendStatus(401);
+    }
+    const errors = validationResult(req);
+
+    let publish_date = req.body.publish_date;
+    if (req.body.publish_date === null || req.body.publish_date == "") {
+      publish_date = new Date();
+    }
+
+    const post = new Post({
+      message: req.body.message,
+      title: req.body.title,
+      publish_date: publish_date,
+      edit_date: new Date(),
+    });
+
+    const result = await Post.updateOne(
+      { _id: req.params.id },
+      {
+        message: req.body.message,
+        title: req.body.title,
+        publish_date: publish_date,
+        edit_date: new Date(),
+      }
+    ).exec();
+
+    if (!errors.isEmpty()) {
+      res.render("post", { post: post, errors: errors.array() });
+      return;
+    } else {
+      res.redirect("/post/" + req.params.id);
+    }
+  }),
+];
+
 exports.post_post = [
   body("title")
     .trim()
