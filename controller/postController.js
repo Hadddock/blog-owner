@@ -38,7 +38,7 @@ exports.post_detail_get = asyncHandler(async (req, res, next) => {
     const comments = await Comment.find({ post: req.params.id })
       .populate("user")
       .exec();
-    const currentDate = new Date();
+
     res.render("post-detail", { post: post, comments: comments });
   } else {
     res.sendStatus(404);
@@ -111,15 +111,10 @@ exports.post_edit_post = [
     }
     const errors = validationResult(req);
 
-    let publish_date = req.body.publish_date;
-    if (req.body.publish_date === null || req.body.publish_date == "") {
-      publish_date = new Date();
-    }
-
     const post = new Post({
       message: req.body.message,
       title: req.body.title,
-      publish_date: publish_date,
+      published: req.body.published === "true",
       edit_date: new Date(),
     });
 
@@ -128,7 +123,7 @@ exports.post_edit_post = [
       {
         message: req.body.message,
         title: req.body.title,
-        publish_date: publish_date,
+        published: req.body.published === "true",
         edit_date: new Date(),
       }
     ).exec();
@@ -160,15 +155,10 @@ exports.post_post = [
     }
     const errors = validationResult(req);
 
-    let publish_date = req.body.publish_date;
-    if (req.body.publish_date === null || req.body.publish_date == "") {
-      publish_date = new Date();
-    }
-
     const post = new Post({
       message: req.body.message,
       title: req.body.title,
-      publish_date: publish_date,
+      published: req.body.published === "true",
       date_created: new Date(),
       edit_date: new Date(),
     });

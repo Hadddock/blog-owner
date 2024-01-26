@@ -11,10 +11,10 @@ block content
           li 
             a(href="/post/"+ post._id) 
               p #{post.title}
-            p Publish Date: #{post.publish_date}
-            if(post.publish_date > (new Date()))
-              p Post unpublished
-
+            if post.published 
+              p published 
+            else 
+              p unpublished
 
             
 

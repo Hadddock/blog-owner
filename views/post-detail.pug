@@ -3,7 +3,10 @@ block content
     if post 
         h1 #{post.title}
         p #{post.message}
-        p This post was published #{post.publish_date}
+        if post.published
+            p This post is published
+        else 
+            p This post is not published
         p This post was last edited #{post.edit_date}
     a(href="/post/" + post._id +"/edit")
         button Edit Post 
