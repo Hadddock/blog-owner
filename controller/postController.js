@@ -10,6 +10,25 @@ exports.post_get = asyncHandler(async (req, res, next) => {
   res.render("post");
 });
 
+exports.comment_delete = asyncHandler(async (req, res, next) => {
+  if (!req.user) {
+    res.sendStatus(401);
+    return;
+  }
+
+  if (req.params.post_id && req.params.comment_id) {
+    const comment = await Comment.deleteOne({
+      _id: req.params.comment_id,
+    }).exec();
+    // const post = await Post.findOne({ _id: req.params.post_id }).exec();
+    // const comments = await Comment.find({ post: req.params.comment_id }).exec();
+    res.redirect("/post/" + req.params.post_id);
+  } else {
+    res.sendStatus(404);
+    return;
+  }
+});
+
 exports.post_detail_get = asyncHandler(async (req, res, next) => {
   if (!req.user) {
     res.sendStatus(401);

@@ -13,6 +13,9 @@ block content
                                 p #{comment.user.username}
                             p #{comment.message}
                             p #{comment.date_created}
+                            form(method="post" action="/post/"+ post._id+ "/comment/" +comment._id )
+                                button.btn.btn-primary(type='submit') Delete Comment
+                            
         if currentUser
     
             form( method="post")
