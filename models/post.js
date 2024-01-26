@@ -10,8 +10,4 @@ const PostSchema = new Schema({
   published: { type: Boolean, required: true },
 });
 
-PostSchema.virtual("publish_date_local").get(function () {
-  return this.publish_date.toISOString().slice(0, 16);
-});
-
 module.exports = mongoose.model("Post", PostSchema);
