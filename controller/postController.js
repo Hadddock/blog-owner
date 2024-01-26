@@ -39,11 +39,7 @@ exports.post_detail_get = asyncHandler(async (req, res, next) => {
       .populate("user")
       .exec();
     const currentDate = new Date();
-    if (post.publish_date === null || post.publish_date <= currentDate) {
-      res.render("post-detail", { post: post, comments: comments });
-    } else {
-      res.sendStatus(404);
-    }
+    res.render("post-detail", { post: post, comments: comments });
   } else {
     res.sendStatus(404);
   }
