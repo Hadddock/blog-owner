@@ -10,28 +10,28 @@ block content
         p This post was last edited #{post.edit_date}
     a(href="/post/" + post._id +"/edit")
         button Edit Post 
-        if comments 
-                ul 
-                    for comment in comments 
-                        li 
-                            if comment.user
-                                p #{comment.user.username}
-                            p #{comment.message}
-                            p #{comment.date_created}
-                            form(method="post" action="/post/"+ post._id+ "/comment/" +comment._id )
-                                button.btn.btn-primary(type='submit') Delete Comment
-                            
-        if currentUser
+    if comments 
+            ul 
+                for comment in comments 
+                    li 
+                        if comment.user
+                            p #{comment.user.username}
+                        p #{comment.message}
+                        p #{comment.date_created}
+                        form(method="post" action="/post/"+ post._id+ "/comment/" +comment._id )
+                            button.btn.btn-primary(type='submit') Delete Comment
+                        
+    if currentUser
+
+        form( method="post")
+            label(for='message') Message:
+            input#title.form-control(type='text', placeholder='Comment' name='message' min=1 max=60000 required value=(undefined===comment ? '' : comment.message) )
+            button.btn.btn-primary(type='submit') Submit
     
-            form( method="post")
-                label(for='message') Message:
-                input#title.form-control(type='text', placeholder='Comment' name='message' min=1 max=60000 required value=(undefined===comment ? '' : comment.message) )
-                button.btn.btn-primary(type='submit') Submit
-        
-            if errors
-                ul
-                for error in errors
-                    li!= error.msg
-        else 
-            form(action="/login")
-                button(type="submit") Login to comment!
+        if errors
+            ul
+            for error in errors
+                li!= error.msg
+    else 
+        form(action="/login")
+            button(type="submit") Login to comment!
