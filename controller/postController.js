@@ -20,8 +20,6 @@ exports.comment_delete = asyncHandler(async (req, res, next) => {
     const comment = await Comment.deleteOne({
       _id: req.params.comment_id,
     }).exec();
-    // const post = await Post.findOne({ _id: req.params.post_id }).exec();
-    // const comments = await Comment.find({ post: req.params.comment_id }).exec();
     res.redirect("/post/" + req.params.post_id);
   } else {
     res.sendStatus(404);
