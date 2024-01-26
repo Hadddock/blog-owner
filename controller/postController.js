@@ -50,7 +50,9 @@ exports.post_detail_post = [
     .trim()
     .isLength({ min: 1, max: 60000 })
     .withMessage("Comment must be 1-60000 characters long")
-    .escape(),
+    .isString()
+    .withMessage("Message field must be a string"),
+
   asyncHandler(async (req, res, next) => {
     if (!req.user) {
       res.sendStatus(401);
@@ -98,12 +100,15 @@ exports.post_edit_post = [
     .trim()
     .isLength({ min: 1, max: 10000 })
     .withMessage("Post title must be 1-10000 characters long")
-    .escape(),
+    .isString()
+    .withMessage("Title field must be a string"),
+
   body("message")
     .trim()
     .isLength({ min: 1, max: 60000 })
     .withMessage("Post message must be 1-60000 characters long")
-    .escape(),
+    .isString()
+    .withMessage("Message field must be a string"),
 
   asyncHandler(async (req, res, next) => {
     if (!req.user) {
@@ -142,12 +147,15 @@ exports.post_post = [
     .trim()
     .isLength({ min: 1, max: 10000 })
     .withMessage("Post title must be 1-10000 characters long")
-    .escape(),
+    .isString()
+    .withMessage("Title field must be a string"),
+
   body("message")
     .trim()
     .isLength({ min: 1, max: 60000 })
     .withMessage("Post message must be 1-60000 characters long")
-    .escape(),
+    .isString()
+    .withMessage("Message field must be a string"),
 
   asyncHandler(async (req, res, next) => {
     if (!req.user) {
